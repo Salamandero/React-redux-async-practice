@@ -1,10 +1,15 @@
 import { useState } from 'react';
-const UpdateForm = ({ user }) => {
+import { useDispatch } from 'react-redux';
+import { fetchChangeUser } from 'redux/users/usersOperations';
+const UpdateForm = ({ user, handleForm }) => {
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
-
+  const dispatch = useDispatch();
   const handleSubmit = e => {
     e.preventDefault();
+    const newUser = { ...user, name, email };
+    dispatch(fetchChangeUser(newUser));
+    handleForm();
   };
 
   const handleChange = e => {

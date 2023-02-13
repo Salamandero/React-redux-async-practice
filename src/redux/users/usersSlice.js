@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchAdd, fetchAll, fetchDelete } from './usersOperations';
+import {
+  fetchAdd,
+  fetchAll,
+  fetchChangeUser,
+  fetchDelete,
+} from './usersOperations';
 
 const initialState = {
   users: [],
@@ -47,6 +52,22 @@ const usersSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchAdd.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchChangeUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchChangeUser.fulfilled, (state, action) => {
+        const index = state.users.findIndex(
+          user => user.id === action.payload.id
+        );
+        state.users[index] = action.payload;
+
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(fetchChangeUser.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
       });

@@ -40,3 +40,15 @@ export const fetchAdd = createAsyncThunk(
     }
   }
 );
+
+export const fetchChangeUser = createAsyncThunk(
+  'users/change',
+  async (user, { rejectWithValue }) => {
+    try {
+      await axios.put(`/users/${user.id}`);
+      return user;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
