@@ -10,9 +10,6 @@ const MainNavigation = () => {
         <li>
           <NavLinkComp to="/users"> Users</NavLinkComp>
         </li>
-        <li>
-          <NavLinkComp to="/add">Add</NavLinkComp>
-        </li>
       </ul>
     </Nav>
   );

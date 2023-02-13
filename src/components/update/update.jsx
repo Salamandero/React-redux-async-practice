@@ -1,22 +1,10 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchAdd } from 'redux/users/usersOperations';
-import { useLocation, useNavigate } from 'react-router-dom';
+const UpdateForm = ({ user }) => {
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
 
-const AddPage = () => {
-  const dispatch = useDispatch();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/users';
-  const navigate = useNavigate();
   const handleSubmit = e => {
     e.preventDefault();
-    const newUser = { name, email };
-    dispatch(fetchAdd(newUser));
-    navigate(backLinkHref, { replace: true });
-    setName('');
-    setEmail('');
   };
 
   const handleChange = e => {
@@ -29,10 +17,9 @@ const AddPage = () => {
         setEmail(value);
         break;
       default:
-        return;
     }
+    return;
   };
-
   return (
     <form onSubmit={handleSubmit}>
       <label>
@@ -49,9 +36,9 @@ const AddPage = () => {
         />
       </label>
 
-      <button type="submit">Add user</button>
+      <button type="submit">Update user</button>
     </form>
   );
 };
 
-export default AddPage;
+export { UpdateForm };

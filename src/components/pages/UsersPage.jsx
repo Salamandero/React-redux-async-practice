@@ -5,7 +5,8 @@ import { fetchAll } from 'redux/users/usersOperations';
 import UserList from 'components/UserList/UserList';
 import { getUsers } from 'redux/users/usersSelector';
 import { useSelector } from 'react-redux/es/exports';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
 const UsersPages = () => {
   const usersData = useSelector(getUsers);
   const dispatch = useDispatch();
@@ -13,12 +14,16 @@ const UsersPages = () => {
     dispatch(fetchAll());
   };
 
+  const location = useLocation();
+
   return (
     <>
       {usersData.length > 0 ? (
         <>
           <UserList />
-          <Link to="/add">Add user</Link>
+          <Link to="/add" state={{ from: location }}>
+            Add user
+          </Link>
         </>
       ) : (
         <Button text="Show Users list" clickHandler={showUsersList} />

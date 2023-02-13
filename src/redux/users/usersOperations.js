@@ -28,3 +28,15 @@ export const fetchDelete = createAsyncThunk(
     }
   }
 );
+
+export const fetchAdd = createAsyncThunk(
+  'users/add',
+  async (user, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(`/users`, user);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
